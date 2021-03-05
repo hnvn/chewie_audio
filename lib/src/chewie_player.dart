@@ -14,7 +14,8 @@ class ChewieAudio extends StatelessWidget {
   const ChewieAudio({
     Key key,
     @required this.controller,
-  })  : assert(controller != null, 'You must provide a chewie audio controller'),
+  })  : assert(
+            controller != null, 'You must provide a chewie audio controller'),
         super(key: key);
 
   /// The [ChewieAudioController]
@@ -50,7 +51,8 @@ class ChewieAudioController extends ChangeNotifier {
     this.errorBuilder,
     this.isLive = false,
     this.allowMuting = true,
-  }) : assert(videoPlayerController != null, 'You must provide a controller to play a video') {
+  }) : assert(videoPlayerController != null,
+            'You must provide a controller to play a video') {
     _initialize();
   }
 
@@ -95,7 +97,8 @@ class ChewieAudioController extends ChangeNotifier {
   final bool allowMuting;
 
   static ChewieAudioController of(BuildContext context) {
-    final chewieAudioControllerProvider = context.dependOnInheritedWidgetOfExactType<_ChewieAudioControllerProvider>();
+    final chewieAudioControllerProvider = context
+        .dependOnInheritedWidgetOfExactType<_ChewieAudioControllerProvider>();
 
     return chewieAudioControllerProvider.controller;
   }
@@ -105,7 +108,8 @@ class ChewieAudioController extends ChangeNotifier {
   Future _initialize() async {
     await videoPlayerController.setLooping(looping);
 
-    if ((autoInitialize || autoPlay) && !videoPlayerController.value.initialized) {
+    if ((autoInitialize || autoPlay) &&
+        !videoPlayerController.value.isInitialized) {
       await videoPlayerController.initialize();
     }
 
@@ -156,5 +160,6 @@ class _ChewieAudioControllerProvider extends InheritedWidget {
   final ChewieAudioController controller;
 
   @override
-  bool updateShouldNotify(_ChewieAudioControllerProvider old) => controller != old.controller;
+  bool updateShouldNotify(_ChewieAudioControllerProvider old) =>
+      controller != old.controller;
 }
